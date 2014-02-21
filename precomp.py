@@ -6,34 +6,16 @@ app = Flask(__name__)
 app.debug = True
 
 
-@app.route('/<bin>')
-def hello(bin):
-    try:
-        return check_output(['which', bin])
-    except CalledProcessError:
-        abort(404)
+@app.route('/')
+def hello():
+    return ("welcome to precomp. you'll want to set up your own:"
+            '<a href="https://github.com/uniphil/cloud-compass">source repo</a>')
 
 
-@app.route('/ls/')
-@app.route('/ls/<path:dir>')
-def ls(dir='.'):
-    try:
-        return check_output(['ls', dir])
-    except CalledProcessError as e:
-        return str(e), 500
-
-
-@app.route('/bash/<path:cmd>')
-def bash(cmd):
-    try:
-        return check_output(cmd.split())
-    except CalledProcessError as e:
-        return str(e), 500
-
-
-@app.route('/gem/install/<gem>')
-def gem_install(gem):
-    try:
-        return check_output(['gem', 'install', '--install-dir', '.', gem])
-    except CalledProcessError as e:
-        return str(e), 500
+@app.route('/sass', methods=['POST'])
+def sassy():
+    # accept the posted tarball
+    # save it somewhere
+    # compile it
+    # send the compiled file back
+    return ''
